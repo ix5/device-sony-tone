@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Platform path
-PLATFORM_COMMON_PATH := device/sony/tone
+PLATFORM_COMMON_PATH := device/sony/tone-common
 
 SOMC_PLATFORM := tone
 SOMC_KERNEL_VERSION := 4.9
