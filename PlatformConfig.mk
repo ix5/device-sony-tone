@@ -42,6 +42,33 @@ BOARD_KERNEL_CMDLINE += androidboot.bootdevice=7464900.sdhci
 
 TARGET_RECOVERY_FSTAB ?= $(PLATFORM_COMMON_PATH)/rootdir/vendor/etc/fstab.tone
 
+# Dynamic Partitions
+# Already set in platform.mk...
+#PRODUCT_BUILD_SUPER_PARTITION := true
+BOARD_SUPER_PARTITION_GROUPS := sony_dynamic_partitions
+# sony_dynamic_partitions will be converted to uppercase, see build/make/core/config.mk
+BOARD_SONY_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+    system \
+    vendor \
+    product
+#    system
+BOARD_SUPER_PARTITION_SIZE := 6197084160
+BOARD_SUPER_PARTITION_METADATA_DEVICE := system
+BOARD_SUPER_PARTITION_BLOCK_DEVICES := system
+BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 6197084160
+
+# Assume 4MB metadata size.
+# 6197084160−4096000 = 6192988160
+BOARD_SONY_DYNAMIC_PARTITIONS_SIZE := 6192988160
+
+BOARD_USES_METADATA_PARTITION := true
+
+# See kagura BoardConfig.mk
+#BOARD_SYSTEMIMAGE_PARTITION_SIZE := 6197084160
+
+# Needed for ota stuff
+TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_COMMON_PATH)
+
 # Wi-Fi definitions for Broadcom solution but using brcmfmac instead of bcmdhd kernel driver
 BOARD_WLAN_DEVICE           := qcwcn
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
@@ -72,7 +99,15 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 2
 # Cache partition
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+
 # Platform witout a vendor partition
-TARGET_COPY_OUT_VENDOR := system/vendor
+#TARGET_COPY_OUT_VENDOR := system/vendor
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_PRODUCT := product
+
+# Treble
+BOARD_VNDK_VERSION := current
 
 include device/sony/common/CommonConfig.mk

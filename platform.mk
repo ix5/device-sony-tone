@@ -170,6 +170,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.wifi.addr_path=/sys/devices/platform/soc/soc:bcmdhd_wlan/macaddr
 
+PRODUCT_BUILD_VENDOR_IMAGE := true
+PRODUCT_BUILD_PRODUCT_IMAGE := true
+
+# Dynamic Partitions
+# See also PlatformConfig.mk
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
+
 # setup dm-verity configs.
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/7464900.sdhci/by-name/system
 $(call inherit-product, build/target/product/verity.mk)
